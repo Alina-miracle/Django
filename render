@@ -1,0 +1,3 @@
+def about(request):
+    data = {"message": "Мы рады приветствовать вас на нашей странице!"}
+    return render(request, 'about.html', data)
