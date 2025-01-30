@@ -1,20 +1,12 @@
-from django.shortcuts import render
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+from .forms import ContactForm
 
-# Create your views here.
-# views.py
-from django.shortcuts import render
-from .forms import ContactForm  # Импортируем форму
-from django.http import HttpResponse
+class ContactView(FormView):
+    template_name = 'contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('contact')
 
-def about(request):
-    return render(request, 'about.html')
-
-def contact(request):
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            # Обработка данных формы
-            return HttpResponse("Форма отправлена!")
-    else:
-        form = ContactForm()
-    return render(request, 'contact.html', {'form': form})
+    def form_valid(self, form):
+        form.send_email()  # Логика отправки
+        return super().form_valid(form)
