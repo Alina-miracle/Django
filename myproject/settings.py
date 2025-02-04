@@ -1,17 +1,11 @@
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-v!@c6&v**tp-3@tib_i)fwo*vg)z!-vyj50m_+o5m60igi0x#m'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -19,21 +13,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',  # Добавьте сюда ваше приложение
+    'users',  # Ваше приложение
 ]
 
-# Укажите кастомную модель пользователя
 AUTH_USER_MODEL = 'users.CustomUser'
-
-# Модель CustomUser
-from django.contrib.auth.models import AbstractUser
-
-class CustomUser(AbstractUser):
-    # Здесь могут быть ваши дополнительные поля для модели пользователя
-    pass
-
-class Meta:
-    app_label = 'users'  # Убедитесь, что указываете правильное имя приложения
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +41,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'users.context_processors.site_info',  # Оставляем, если нужно
             ],
         },
     },
@@ -65,8 +49,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,7 +56,6 @@ DATABASES = {
     }
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -90,15 +71,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
 USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

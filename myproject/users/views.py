@@ -1,11 +1,13 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.views.generic import ListView
-from .models import CustomUser
+from .models import User
 
 class UserListView(ListView):
-    model = CustomUser
-    template_name = 'user_list.html'
+    model = User
+    template_name = 'users/user_list.html'
     context_object_name = 'users'
+    paginate_by = 10  # Количество элементов на странице
+
+    def get_queryset(self):
+        return User.objects.filter(is_active=True)  # Показываем только активных пользователей
+users = CustomUser.objects.active_users()

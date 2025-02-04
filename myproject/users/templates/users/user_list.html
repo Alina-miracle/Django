@@ -13,3 +13,22 @@
     </ul>
 </body>
 </html>
+<h1>Добро пожаловать на {{ site_name }}!</h1>
+{% for user in users %}
+    <p>{{ user.username }}</p>
+{% endfor %}
+
+<div>
+    {% if users.has_previous %}
+        <a href="?page=1">Первая</a>
+        <a href="?page={{ users.previous_page_number }}">Назад</a>
+    {% endif %}
+
+    <span>Страница {{ users.number }} из {{ users.paginator.num_pages }}</span>
+
+    {% if users.has_next %}
+        <a href="?page={{ users.next_page_number }}">Вперед</a>
+        <a href="?page={{ users.paginator.num_pages }}">Последняя</a>
+    {% endif %}
+</div>
+<p>Перевернутое имя: {{ user.username|reverse_string }}</p>
