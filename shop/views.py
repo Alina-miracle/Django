@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 from .models import Product
+from .serializers import ProductSerializer
 
-def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'shop/product_list.html', {'products': products})
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
